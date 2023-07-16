@@ -1,5 +1,5 @@
 import django_filters
-from .models import Book
+from .models import Book, Author
 
 
 class BookFilter(django_filters.FilterSet):

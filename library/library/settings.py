@@ -42,10 +42,21 @@ INSTALLED_APPS = [
     "django_filters",
     "graphene_django",
     # Custom apps
+    "users",
     "catelog",
 ]
 
-GRAPHENE = {"SCHEMA": "library.schema.schema"}
+GRAPHENE = {
+    "SCHEMA": "library.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
