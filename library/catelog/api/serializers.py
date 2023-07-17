@@ -20,18 +20,20 @@ class BookSerializer(serializers.ModelSerializer):
         fields = "__all__"
         extra_kwargs = {"id": {"read_only": False, "required": False}}
 
-    def create(self, validate_data):
-        author_data = validate_data.pop("author")
-        author, created = Author.objects.get_or_create(**author_data)
-        book = Book.objects.create(author=author, **validate_data)
+    def create(self, validated_data):
+        author_data = validated_data.pop("author", None)
+        if author_data:
+            author, created = Author.objects.get_or_create(**author_data)
+            validated_data["author"] = author
+        book = Book.objects.create(**validated_data)
         return book
 
-    def update(self, instance, validate_data):
-        author_data = validate_data.pop("author")
-        author, created = Author.objects.get_or_create(**author_data)
-        instance.author = author
-        for attr, value in validate_data.items():
+    def update(self, instance, validated_data):
+        author_data = validated_data.pop("author", None)
+        if author_data:
+            author, created = Author.objects.get_or_create(**author_data)
+            instance.author = author
+        for attr, value in validated_data.items():
             setattr(instance, attr, value)
-
         instance.save()
         return instance

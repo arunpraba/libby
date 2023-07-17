@@ -33,5 +33,5 @@ class Query(ObjectType):
     authors = DjangoFilterConnectionField(AuthorNode)
 
 
-class Muation(ObjectType):
-    book_muation = BookMutation.Field()
+class Mutation(ObjectType):
+    book_mutation = BookMutation.Field()

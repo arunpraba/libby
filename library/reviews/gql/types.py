@@ -7,6 +7,7 @@ class ReviewType(DjangoObjectType):
     class Meta:
         model = Review
         convert_choices_to_enum = False
+        fields = "__all__"
 
 
 class ReviewInputType(InputObjectType):

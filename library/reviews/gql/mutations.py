@@ -16,14 +16,15 @@ class ReviewCreate(Mutation):
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, **data):
+    def mutate(cls, root, info, input):
         user = info.context.user
-        review_data = data.get("input")
+        review_data = dict(input)
         review_data["user"] = user.id
 
         serializer = ReviewSerializer(data=review_data)
         serializer.is_valid(raise_exception=True)
-        return ReviewCreate(review=serializer.save())
+        review = serializer.save()
+        return ReviewCreate(review=review)
 
 
 class ReviewUpdate(Mutation):
@@ -34,22 +35,27 @@ class ReviewUpdate(Mutation):
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, **data):
+    def mutate(cls, root, info, input):
         user = info.context.user
-        review_data = data.get("input")
-        review_data["user"] = user.id
-
+        review_data = dict(input)
         review_instance = Review.objects.get(id=review_data.get("id"), user=user.id)
+
         serializer = ReviewSerializer(review_instance, data=review_data)
         serializer.is_valid(raise_exception=True)
-        return ReviewCreate(review=serializer.save())
+        review = serializer.save()
+        return ReviewUpdate(review=review)
 
 
 class ReviewDelete(Mutation):
-    id = ID(required=True)
     success = Boolean()
+
+    class Arguments:
+        id = ID(required=True)
 
     @classmethod
     @login_required
-    def mutate(cls, root, info, **data):
+    def mutate(cls, root, info, id):
         user = info.context.user
+        review = Review.objects.get(id=id, user=user)
+        review.delete()
+        return ReviewDelete(success=True)
