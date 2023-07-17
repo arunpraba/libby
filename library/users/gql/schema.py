@@ -23,7 +23,7 @@ class Query(ObjectType):
 
 class Mutation(ObjectType):
     user_create = UserCreate.Field()
-    token_auth = ObtainJSONWebToken.Field()
+    login = ObtainJSONWebToken.Field()
     verify_token = Verify.Field()
     refresh_token = Refresh.Field()
 
