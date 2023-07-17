@@ -4,7 +4,12 @@ import users.gql.schema
 import reviews.gql.schema
 
 
-class Query(catelog.schema.Query, users.gql.schema.Query, graphene.ObjectType):
+class Query(
+    catelog.schema.Query,
+    users.gql.schema.Query,
+    reviews.gql.schema.Query,
+    graphene.ObjectType,
+):
     pass
 
 
