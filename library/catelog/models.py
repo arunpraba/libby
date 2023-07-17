@@ -35,3 +35,20 @@ class Author(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class BookImage(models.Model):
+    """Model definition for BookImage"""
+
+    id = models.AutoField(primary_key=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    url = models.CharField(max_length=255)
+
+    class Meta:
+        """Meta definition for book image"""
+
+        verbose_name = "Book Image"
+        verbose_name_plural = "Book Images"
+
+    def __str__(self) -> str:
+        return self.book.title

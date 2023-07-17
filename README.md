@@ -2,9 +2,7 @@
 
 ## Description
 
-This project is to learn Django & graphql.
-
-<!-- Update installation based on Pipfile -->
+This project is to learn Django & graphql. It is a simple library app. user can add books, authors and reviews.
 
 ## Installation
 
@@ -12,44 +10,31 @@ This project is to learn Django & graphql.
 pipenv install
 ```
 
-## Auth mutations
+## Features
 
-### Create user
+Auth
 
-```gql
-mutation CreateUser {
-  userCreate(email: "john@gmail.com", password: "password", username: "john") {
-    user {
-      id
-      username
-      firstName
-      lastName
-      email
-    }
-  }
-}
-```
+- Login
+- Refresh Token
 
-### Login
+Book
 
-```gql
-mutation Login {
-  login(username: "tom", password: "password") {
-    payload
-    refreshExpiresIn
-    token
-  }
-}
-```
+- Create
+- Read
+- Update
+- Delete
+- Image Upload
 
-### Refresh token
+Author
 
-```gql
-mutation RefreshToken {
-  refreshToken(token: "token") {
-    payload
-    refreshExpiresIn
-    token
-  }
-}
-```
+- Create
+- Read
+- Update
+- Delete
+
+Review
+
+- Create
+- Read
+- Update
+- Delete
